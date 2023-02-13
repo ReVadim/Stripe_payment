@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import PositiveSmallIntegerField
 from django.utils.translation import gettext_lazy as _
 from django.core.validators import MinValueValidator
 from django.contrib.auth.models import User
@@ -15,7 +16,7 @@ class Item(models.Model):
         max_length=2000,
         verbose_name=_('description')
     )
-    price = models.PositiveSmallIntegerField(
+    price: int = models.PositiveSmallIntegerField(
         default=0,
         verbose_name=_('price'),
         validators=[MinValueValidator(0)]
@@ -29,6 +30,9 @@ class Item(models.Model):
 
     def __str__(self):
         return f'Item {self.name}: {self.price}'
+
+    def get_real_price(self):
+        return "{0:.2f}".format(self.price / 100)
 
 
 class Order(models.Model):
@@ -67,12 +71,9 @@ class Order(models.Model):
         default=Status.DRAFT
     )
 
-    def total_cost(self):
-        """ Calculates the total cost of the order
-        """
-        pass
-
     class Meta:
+        verbose_name = _('Order')
+        verbose_name_plural = _('Orders')
         ordering = ['created']
         indexes = [
             models.Index(fields=['created']),

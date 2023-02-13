@@ -24,7 +24,7 @@ class ItemLandingPageView(TemplateView):
     template_name = "marketplace/landing.html"
 
     def get_context_data(self, **kwargs):
-        product = Item.objects.get(name="Test_item")
+        product = Item.objects.get(id=kwargs['item_id'])
         context = super(ItemLandingPageView, self).get_context_data(**kwargs)
         context.update({
             "product": product,

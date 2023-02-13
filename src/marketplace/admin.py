@@ -1,5 +1,8 @@
 from django.contrib import admin
-from src.marketplace.models import Item, Order
+from src.marketplace.models import (
+    Item,
+    Order
+)
 
 
 @admin.register(Item)
