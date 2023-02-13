@@ -13,9 +13,22 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from django.conf import settings
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
+from django.views.decorators.cache import never_cache
+from django.contrib.staticfiles.views import serve
+from django.conf.urls.static import static
+
+from src.services import CreateCheckoutSessionView
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('create-checkout-session/<pk>/', CreateCheckoutSessionView.as_view(), name='create-checkout-session'),
+    path('', include('src.marketplace.urls')),
 ]
+
+if settings.DEBUG:
+    urlpatterns.append(path('static/<path:path>', never_cache(serve)))
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
