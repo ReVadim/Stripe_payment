@@ -15,10 +15,8 @@ class Item(models.Model):
         max_length=2000,
         verbose_name=_('description')
     )
-    price = models.DecimalField(
+    price = models.PositiveSmallIntegerField(
         default=0,
-        max_digits=9,
-        decimal_places=2,
         verbose_name=_('price'),
         validators=[MinValueValidator(0)]
     )
