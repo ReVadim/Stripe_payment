@@ -1,6 +1,7 @@
 from django.contrib import admin
 from src.marketplace.models import (
     Item,
+    OrderItem,
     Order
 )
 
@@ -15,11 +16,21 @@ class ItemAdmin(admin.ModelAdmin):
     ordering = ['name', 'price']
 
 
+@admin.register(OrderItem)
+class OrderItemAdmin(admin.ModelAdmin):
+    """ OrderItem administration
+    """
+    list_display = ['buyer', 'created', 'updated', 'quantity']
+    list_filter = ['buyer', 'created']
+    search_fields = ['buyer', 'created']
+    ordering = ['created']
+
+
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
-    """ Order administration
+    """ Orders administration
     """
-    list_display = ['buyer', 'status', 'created', 'updated', 'quantity']
+    list_display = ['buyer', 'status', 'created', 'updated']
     list_filter = ['buyer', 'status', 'created']
     search_fields = ['buyer', 'status', 'created']
     ordering = ['status', 'created']
