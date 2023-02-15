@@ -45,6 +45,7 @@ SYSTEM_APPS = [
 
 PROJECT_APPS = [
     'src.marketplace.apps.MarketplaceConfig',
+    'src.cart.apps.CartConfig',
 ]
 
 INSTALLED_APPS = SYSTEM_APPS + PROJECT_APPS
@@ -152,3 +153,5 @@ LANGUAGES = (
 LOCALE_PATHS = (
     os.path.join(BASE_DIR, 'locale/'),
 )
+
+CART_SESSION_ID = 'cart'
